@@ -1,0 +1,334 @@
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight, BookOpen, PenTool, Lightbulb, CheckCircle } from 'lucide-react';
+
+const App = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    // --- TEXT 1: A Universalized Study of Literature ---
+    {
+      title: "Part 1: Introduction",
+      type: "intro",
+      content: {
+        mainTitle: "A Universalized Study of Literature",
+        subTitle: "세계 문학 연구의 보편화와 그 한계",
+        objective: "언어적 장벽과 번역의 한계로 인한 보편적 문학 연구의 어려움을 이해한다."
+      }
+    },
+    {
+      title: "Text 1: The Language Barrier",
+      type: "text-analysis",
+      paragraph: "There is special difficulty in a universalized study of literature. Although literature contains universal human spirits and sentiments, a universal language — written or spoken — is still (a) lacking.",
+      analysis: [
+        { eng: "Although literature contains...", kor: "비록 문학이 보편적인 인간의 정신과 정서를 포함하고 있지만," },
+        { eng: "...a universal language is still lacking.", kor: "보편적인 (공통된) 언어는 여전히 결여되어 있다." }
+      ],
+      keywords: ["Universalized (보편화된)", "Sentiments (정서/감정)", "Lacking (부족한/결여된)"]
+    },
+    {
+      title: "Text 1: Practical Limitations",
+      type: "text-analysis",
+      paragraph: "Needless to say, it is absolutely (b) impossible for laymen to understand all the world’s literatures. They can understand nothing other than their own language.",
+      analysis: [
+        { eng: "Needless to say...", kor: "말할 필요도 없이 (당연히)" },
+        { eng: "nothing other than...", kor: "~외에는 아무것도 아닌 (오직 ~만)" }
+      ],
+      keywords: ["Laymen (비전문가/속인)", "Needless to say (말할 것도 없이)"]
+    },
+    {
+      title: "Text 1: The Limits of Translation",
+      type: "text-analysis",
+      paragraph: "It is true that scholars and even common readers can use translations, but how faithful is a translation to the original? The value and enjoyment of the original may be lost through translation.",
+      analysis: [
+        { eng: "how faithful is a translation to the original?", kor: "번역이 원작에 얼마나 충실할 수 있을까?" },
+        { eng: "The value... may be lost", kor: "원작의 가치와 즐거움이 번역을 통해 상실될 수 있다." }
+      ],
+      keywords: ["Faithful (충실한)", "Original (원작)"]
+    },
+    {
+      title: "Text 1: Literature as Manifestation",
+      type: "text-analysis",
+      paragraph: "Literature is the (c) manifestation of the author’s emotions and inspirations... once the moment passes, the natural flowing of writing can never be repeated.",
+      analysis: [
+        { eng: "Manifestation of emotions", kor: "감정의 표출/현시" },
+        { eng: "can never be repeated", kor: "결코 반복될 수 없다 (일회성 강조)" }
+      ],
+      keywords: ["Manifestation (표출)", "Epiphany (직관/통찰)"]
+    },
+    {
+      title: "Text 1: Cultural Color & Context",
+      type: "text-analysis",
+      paragraph: "What is more, literature almost always has a (d) universal color. Such color is most vivid and lively in the eyes of the local people, but means nothing to others.",
+      analysis: [
+        { eng: "vivid and lively", kor: "생생하고 활기찬" },
+        { eng: "means nothing to others", kor: "타인에게는 아무 의미가 없다." }
+      ],
+      keywords: ["Vivid (생생한)", "Concession (양보/타협)"]
+    },
+    {
+      title: "Text 1 Grammar: The Latter & The Former",
+      type: "grammar",
+      concept: "지시대명사의 조응 (The Former / The Latter)",
+      example: "Also, moods, imaginations, and even thoughts in literature are so (e) closely related to words that once (A) the latter change, (B) the former change as well.",
+      explanation: [
+        { label: "(A) The Latter (후자)", target: "Words (언어/단어)" },
+        { label: "(B) The Former (전자)", target: "Moods, imaginations, and thoughts (내용적 요소)" },
+        { label: "Structure", detail: "so ~ that: 너무 ~해서 ...하다" }
+      ]
+    },
+    {
+      title: "Text 1: Summary & Quiz",
+      type: "summary",
+      points: [
+        "문학은 보편적이지만 언어는 개별적이다.",
+        "번역은 원작의 고유한 감정을 온전히 담기 어렵다.",
+        "언어(Words)가 바뀌면 내용(Moods)도 바뀐다."
+      ],
+      quiz: [
+        "Q: 'the latter'가 가리키는 대상은? (Words)",
+        "Q: 번역이 원작의 가치를 잃게 하는 이유는? (저자의 영감은 재현 불가능)"
+      ]
+    },
+    // --- TEXT 2: What Do We Practise For? ---
+    {
+      title: "Part 2: Introduction",
+      type: "intro",
+      content: {
+        mainTitle: "What Do We Practise For?",
+        subTitle: "연습의 목적: 완벽한 준비와 자유로운 연주",
+        objective: "연습(Engineer)과 공연(Pilot)의 차이를 이해하고 숙달의 중요성을 배운다."
+      }
+    },
+    {
+      title: "Text 2: Practice as Athletic Activity",
+      type: "text-analysis",
+      paragraph: "Concert pianists spend much more of their lifetimes practising than they do playing concerts... it’s not just that pieces need to be kept in the memory, but the very act of playing the piano is physical and athletic.",
+      analysis: [
+        { eng: "physical and athletic", kor: "피아노 연주는 신체적이고 운동 경기와 같다." },
+        { eng: "It involves reflex and endurance.", kor: "그것은 반사 신경과 인내력을 수반한다." }
+      ],
+      keywords: ["Reflex (반사 신경)", "Endurance (인내력)", "Rusty (기량이 떨어진)"]
+    },
+    {
+      title: "Text 2: Effective Use of Time",
+      type: "text-analysis",
+      paragraph: "A pianist who has concerts has little time to spare, so it’s important (b) that those spare hours, even minutes, be used well.",
+      analysis: [
+        { eng: "important that... be used well", kor: "시간들이 잘 사용되는 것이 중요하다 (당위성)" },
+        { eng: "make offstage best serve onstage", kor: "무대 밖의 시간이 무대 위 시간을 돕게 하라" }
+      ],
+      keywords: ["Offstage (무대 밖)", "Spare (남는/할애하다)"]
+    },
+    {
+      title: "Text 2: Perfectionist vs. Realist",
+      type: "text-analysis",
+      paragraph: "Gordon Green used to say, ‘In practice a perfectionist, (A) in performance a realist.’ In other words, prepare assiduously, tirelessly, at home, but (c) when onstage accept the situation at hand.",
+      analysis: [
+        { eng: "In practice a perfectionist", kor: "연습할 때는 완벽주의자가 되어라" },
+        { eng: "In performance a realist", kor: "공연할 때는 현실주의자가 되어라" }
+      ],
+      keywords: ["Assiduously (부지런히)", "Prosaic (평범한/지루한)"]
+    },
+    {
+      title: "Text 2: The Engineer and The Pilot",
+      type: "text-analysis",
+      paragraph: "In practice an engineer, in performance a pilot. Nuts and bolts in a plane are incomparably important, but when you sit at the cockpit of a Steinway, your eyes need to look ahead not underneath.",
+      analysis: [
+        { eng: "In practice an engineer", kor: "연습 시에는 기술자처럼 세밀하게" },
+        { eng: "In performance a pilot", kor: "공연 시에는 조종사처럼 앞을 보며 비행" }
+      ],
+      keywords: ["Nuts and bolts (기본 사항)", "Cockpit (조종석)"]
+    },
+    {
+      title: "Text 2 Grammar: Subjunctive & Metaphor",
+      type: "grammar",
+      concept: "당위의 표현과 비유적 대조",
+      example: "Without the nuts and bolts in place, we shall never be airborne.",
+      explanation: [
+        { label: "Grammar (b)", target: "important that + (should) be used: 조동사 should 생략" },
+        { label: "Metaphor (B)", target: "Nuts and bolts (기술) → Airborne (예술적 비상)" },
+        { label: "Grammar (c)", target: "wishing the piano were...: 가정법 과거" }
+      ]
+    },
+    {
+      title: "Text 2: Summary & Quiz",
+      type: "summary",
+      points: [
+        "연습은 '엔지니어'로서의 기술적 완성을 기하는 과정이다.",
+        "공연은 '조종사'로서 자유롭게 예술적 비상을 하는 과정이다.",
+        "기본(Nuts and bolts)이 갖춰져야 자유로운 연주가 가능하다."
+      ],
+      quiz: [
+        "Q: 'Engineer'와 'Pilot'은 각각 무엇을 상징하나요? (연습 vs 공연)",
+        "Q: 'Airborne'의 의미는? (예술적 자유/표현에 도달함)"
+      ]
+    }
+  ];
+
+  const nextSlide = () => {
+    if (currentSlide < slides.length - 1) setCurrentSlide(currentSlide + 1);
+  };
+
+  const prevSlide = () => {
+    if (currentSlide > 0) setCurrentSlide(currentSlide - 1);
+  };
+
+  const slide = slides[currentSlide];
+
+  return (
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
+      {/* Header */}
+      <header className="bg-indigo-700 text-white p-4 shadow-md flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <BookOpen size={24} />
+          <h1 className="font-bold text-lg uppercase tracking-wider">English Class: Combined Lesson</h1>
+        </div>
+        <div className="text-sm font-medium opacity-80">
+          Slide {currentSlide + 1} / {slides.length}
+        </div>
+      </header>
+
+      {/* Main Content Area */}
+      <main className="flex-1 flex items-center justify-center p-6">
+        <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden min-h-[600px] flex flex-col border border-slate-200">
+          
+          {/* Slide Title */}
+          <div className="bg-slate-100 px-8 py-4 border-b border-slate-200 flex items-center justify-between">
+            <h2 className="text-xl font-bold text-indigo-800">{slide.title}</h2>
+            <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter">
+              {slide.type}
+            </span>
+          </div>
+
+          {/* Slide Content */}
+          <div className="flex-1 p-8">
+            {slide.type === 'intro' && (
+              <div className="h-full flex flex-col justify-center items-center text-center space-y-6">
+                <div className="bg-indigo-50 p-10 rounded-3xl border-2 border-dashed border-indigo-200 w-full max-w-3xl">
+                  <h3 className="text-4xl font-extrabold text-indigo-900 mb-2">{slide.content.mainTitle}</h3>
+                  <p className="text-2xl text-slate-600 mb-8">{slide.content.subTitle}</p>
+                  <div className="max-w-md mx-auto h-1 bg-indigo-200 mb-8"></div>
+                  <div className="flex items-center justify-center gap-2 text-indigo-700 font-semibold">
+                    <Lightbulb size={20} />
+                    <span>Learning Objective: {slide.content.objective}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {slide.type === 'text-analysis' && (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+                <div className="space-y-4">
+                  <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 leading-relaxed text-lg italic text-slate-800">
+                    "{slide.paragraph}"
+                  </div>
+                  <div className="space-y-3">
+                    <h4 className="font-bold text-indigo-700 flex items-center gap-2">
+                      <CheckCircle size={18} /> Vocabulary
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {slide.keywords.map((word, idx) => (
+                        <span key={idx} className="bg-amber-100 text-amber-800 px-3 py-1 rounded-lg text-sm font-medium">
+                          {word}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-6">
+                  <h4 className="font-bold text-indigo-700 text-lg border-b pb-2">Reading Comprehension</h4>
+                  {slide.analysis.map((item, idx) => (
+                    <div key={idx} className="bg-indigo-50/50 p-4 rounded-lg border-l-4 border-indigo-500">
+                      <p className="text-sm font-bold text-slate-500 mb-1">{item.eng}</p>
+                      <p className="text-indigo-900 font-medium">{item.kor}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {slide.type === 'grammar' && (
+              <div className="space-y-8 h-full flex flex-col justify-center">
+                <div className="bg-slate-900 text-white p-6 rounded-xl shadow-lg">
+                  <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                    <PenTool size={24} /> {slide.concept}
+                  </h3>
+                  <p className="text-xl leading-relaxed italic border-l-4 border-amber-400 pl-4 py-2">
+                    {slide.example}
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {slide.explanation.map((item, idx) => (
+                    <div key={idx} className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col items-start">
+                      <span className="text-xs font-black text-indigo-500 uppercase mb-2">{item.label}</span>
+                      <span className="text-sm text-slate-800 font-bold leading-tight">{item.target}</span>
+                      <span className="text-xs text-slate-400 mt-1">{item.detail}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {slide.type === 'summary' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
+                <div className="bg-emerald-50 p-6 rounded-xl border border-emerald-200">
+                  <h4 className="font-black text-emerald-700 text-xl mb-4 uppercase">Core Summary</h4>
+                  <ul className="space-y-4">
+                    {slide.points.map((p, i) => (
+                      <li key={i} className="flex gap-3">
+                        <span className="bg-emerald-600 text-white w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold">{i+1}</span>
+                        <span className="text-emerald-900 font-medium">{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="bg-slate-800 p-6 rounded-xl text-white">
+                  <h4 className="font-black text-amber-400 text-xl mb-4 uppercase italic underline decoration-amber-400">Quiz & Discussion</h4>
+                  <div className="space-y-6">
+                    {slide.quiz.map((q, i) => (
+                      <div key={i} className="border-b border-slate-700 pb-4 last:border-0 italic text-slate-300">
+                        {q}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Footer Controls */}
+          <div className="bg-slate-50 p-6 border-t border-slate-200 flex justify-between items-center">
+            <button 
+              onClick={prevSlide}
+              disabled={currentSlide === 0}
+              className={`flex items-center gap-2 px-6 py-2 rounded-xl font-bold transition-all ${currentSlide === 0 ? 'text-slate-300 cursor-not-allowed' : 'text-slate-700 hover:bg-slate-200'}`}
+            >
+              <ChevronLeft /> PREV
+            </button>
+
+            <div className="flex gap-1 overflow-x-auto max-w-[200px] md:max-w-none">
+              {slides.map((_, i) => (
+                <div key={i} className={`h-2 rounded-full transition-all shrink-0 ${currentSlide === i ? 'bg-indigo-600 w-6' : 'bg-slate-300 w-2'}`}></div>
+              ))}
+            </div>
+
+            <button 
+              onClick={nextSlide}
+              disabled={currentSlide === slides.length - 1}
+              className={`flex items-center gap-2 px-6 py-2 rounded-xl font-bold transition-all ${currentSlide === slides.length - 1 ? 'text-slate-300 cursor-not-allowed' : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-md'}`}
+            >
+              NEXT <ChevronRight />
+            </button>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer Text */}
+      <footer className="p-4 text-center text-slate-400 text-xs">
+        © 2025 Comprehensive Reading Presentation Tools | Linear Mode
+      </footer>
+    </div>
+  );
+};
+
+export default App;
